@@ -3,6 +3,7 @@
 const config = require('./config/configuration')
 const mongoParameter = require('./config/mongo')
 const winston = require('./utils/winston')
+const routes = require('./routes/routes')
 
 const mongoose = require('mongoose')
 const http = require('http')

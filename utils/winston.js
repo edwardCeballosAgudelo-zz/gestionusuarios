@@ -5,7 +5,7 @@ const pathFile = require('app-root-path').path
 
 winston.add(
   winston.transports.File, {
-    filename: pathFile + '/logs/pruebaTalentaLogs' + now + '.log',
+    filename: pathFile + '/logs/pruebatalentalogs' + now + '.log',
     level: 'info',
     json: true,
     eol: '\n',
