@@ -16,7 +16,8 @@ const userSchema = new Schema({
     required: true
   },
   Peso: {
-    type: Number
+    type: Number,
+    default: 0
   }
 })
 
