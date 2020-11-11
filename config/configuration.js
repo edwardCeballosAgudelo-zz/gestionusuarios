@@ -1,6 +1,6 @@
 'use strict'
 
-const database = 'mongodb://localhost:27017/talentaPrueba'
+const database = ''
 
 module.exports = {
   database
