@@ -9,13 +9,13 @@ async function addUser (req, res) {
     }
     const ususarioExiste = await User.findOne({ Documento: req.body.Documento })
     if (ususarioExiste) {
-      return res.status(200).json({ message: 'Usuario ya registrado.' })
+      return res.status(404).json({ message: 'Usuario ya registrado.' })
     }
     const nuevoUsuario = new User({
       Nombre: req.body.Nombre,
       Apellido: req.body.Apellido,
       Documento: req.body.Documento,
-      Peso: req.body.Peso
+      Peso: req.body.Peso || 0
     })
     await nuevoUsuario.save()
     return res.status(200).json({ message: 'Usuario creado correctamente.' })
@@ -47,10 +47,10 @@ async function getUserDocumento (req, res) {
 
 async function updateUser (req, res) {
   try {
-    if (req.body.Documento === undefined || req.body.Nombre === undefined || req.body.Apellido === undefined) {
+    if (req.params.Documento === undefined) {
       return res.status(404).json({ message: 'No se han proporcionado los campos necesarios para esta accion.' })
     }
-    const ususarioExiste = await User.findOne({ Documento: req.body.Documento })
+    const ususarioExiste = await User.findOne({ Documento: req.params.Documento })
     if (ususarioExiste) {
       const infoUsuarioUpdate = {
         Nombre: req.body.Nombre,
@@ -59,7 +59,7 @@ async function updateUser (req, res) {
       }
       const actualizacionUser = await User.findByIdAndUpdate(ususarioExiste._id, infoUsuarioUpdate, { new: true })
       if (actualizacionUser) {
-        return res.status(200).json({ message: 'Usuario ya ha sido actualizado.' })
+        return res.status(200).json(actualizacionUser)
       } else {
         res.status(500).json({ message: 'Hubo un error en la actualizacion.' })
       }
@@ -73,7 +73,7 @@ async function updateUser (req, res) {
 
 async function deleteUser (req, res) {
   try {
-    const ususarioExiste = await User.findOne({ Documento: req.body.Documento })
+    const ususarioExiste = await User.findOne({ Documento: req.params.Documento })
     if (ususarioExiste) {
       await User.findByIdAndRemove(ususarioExiste._id)
       return res.status(200).json({ message: 'Usuario ya ha sido Eliminado.' })
