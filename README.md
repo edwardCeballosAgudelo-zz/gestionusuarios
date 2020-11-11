@@ -1,5 +1,7 @@
 # PruebaTalenta
 
+Node version: v12.13.0
+
 ## Development server
 
 Run `node server.js`
